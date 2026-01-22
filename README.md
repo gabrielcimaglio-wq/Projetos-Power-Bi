@@ -1,60 +1,36 @@
-# Projetos-Power-Bi
-# 📦 Dashboard de Supply Chain: Gestão de Estoque e Curva ABC
+# 🤝 Customer Success Analytics: Dashboard de Health Score e Retenção
 
 ![Status](https://img.shields.io/badge/Status-Concluído-success)
+![Área](https://img.shields.io/badge/Foco-Customer_Success_%26_Retention-orange)
 ![Ferramenta](https://img.shields.io/badge/Power_BI-Desktop-yellow)
-![Foco](https://img.shields.io/badge/Foco-Logística_%26_Supply_Chain-blue)
 
-> **[🔗 CLIQUE AQUI PARA VER O DASHBOARD INTERATIVO](COLOQUE_SEU_LINK_DO_NOVYPRO_OU_POWERBI_AQUI)**
+> **[🔗 CLIQUE AQUI PARA VER O DASHBOARD INTERATIVO](COLOQUE_SEU_LINK_AQUI)**
 
 ## 💼 O Desafio de Negócio
-Uma distribuidora fictícia precisava gerenciar um inventário com **3.000 SKUs (produtos)** distintos. O objetivo principal era reduzir o capital imobilizado em produtos de baixo giro e evitar a ruptura (falta de estoque) em produtos de alto valor agregado.
+Para uma empresa baseada em recorrência (assinatura/SaaS), a retenção de clientes é tão importante quanto a venda. O objetivo deste projeto foi centralizar os dados de comportamento dos clientes para identificar contas em risco de cancelamento (**Churn**) antes que ele aconteça.
 
-**Perguntas a responder:**
-1. Quais produtos estão com nível crítico de estoque (Ruptura ou Abaixo do Mínimo)?
-2. Quanto de capital financeiro está "parado" no estoque hoje?
-3. Quais são os produtos e fornecedores da **Classe A** (Curva ABC)?
-
----
-
-## 🛠️ A Solução Construída
-
-Utilizei o **Power BI** para transformar os dados brutos de movimentação em um painel estratégico.
-
-### 1. Tratamento de Dados (ETL)
-* **Correção de Localidade:** A base original utilizava ponto para decimais (padrão US), o que gerava erros de cálculo no Power BI Brasil. Foi aplicado tratamento no **Power Query** para conversão e tipagem correta dos dados.
-* **Padronização:** Limpeza de nomes de categorias e fornecedores.
-
-### 2. Modelagem e DAX Avançado
-* **Cálculo Financeiro Preciso (Iteradores):**
-    * *Problema:* Multiplicar totais de médias gera valores errados.
-    * *Solução:* Uso da função `SUMX` para calcular `(Estoque * Custo)` linha a linha.
-    ```dax
-    Capital Imobilizado Real = SUMX(estoque_3000, estoque_3000[Estoque_Atual] * estoque_3000[Custo_Unitario])
-    ```
-
-* **Curva ABC (Pareto 80/20):**
-    * Desenvolvimento de um algoritmo via DAX para classificar dinamicamente os produtos em classes A (70% do valor), B (20%) e C (10%).
-    * Isso permitiu focar a gestão nos fornecedores que realmente impactam o fluxo de caixa.
-
-* **Status Dinâmico (Semáforo):**
-    * Lógica condicional (`SWITCH`) para classificar itens em: 🔴 Ruptura, 🟡 Reposição, 🔵 Excesso e 🟢 Saudável.
+**Perguntas-chave:**
+1. Quais clientes estão com a "Saúde" baixa (Risco de Churn)?
+2. Como está a evolução do NPS (Satisfação) por segmento de cliente?
+3. Qual é a taxa de engajamento da base ativa?
 
 ---
 
-## 📊 Visualização de Dados (UI/UX)
-* **Gráfico de Dispersão:** Análise de risco cruzando *Lead Time* (Eixo X) com *Nível de Estoque* (Eixo Y), permitindo identificar gargalos logísticos.
-* **Treemap de Fornecedores:** Visualização hierárquica para identificar a concentração de capital por parceiro comercial.
-* **Navegação:** Menu superior personalizado para transição entre visão tática (Giro) e estratégica (Fornecedores).
+## 🛠️ A Solução: Algoritmo de Health Score
 
----
+O diferencial deste projeto foi o desenvolvimento de um **Health Score** (Pontuação de Saúde) calculado via DAX. A métrica não é apenas um número, mas uma média ponderada de três pilares fundamentais:
 
-## 📂 Arquivos Neste Repositório
-* `dashboard_estoque.pbix` - Arquivo editável do projeto.
-* `estoque_3000.csv` - Base de dados gerada via script para simulação.
+* **Engajamento (40%):** Frequência de login e uso das ferramentas principais.
+* **Suporte (30%):** Volume de tickets abertos e tempo de resolução.
+* **Financeiro (30%):** Histórico de pagamentos e inadimplência.
 
----
+### Lógica Técnica (DAX)
+Utilizei a função `SWITCH` e variáveis (`VAR`) para normalizar diferentes escalas (ex: dias sem acesso vs. número de tickets) em uma nota única de 0 a 100.
 
-### 👨‍💻 Autor
-Desenvolvido por **Gabriel**
-*Conecte-se comigo no [LinkedIn]https://www.linkedin.com/in/gabriel-travassos-739306268/*
+```dax
+Health Score = 
+VAR Nota_Uso = [Média Acessos] * 0.4
+VAR Nota_Suporte = [Score Tickets] * 0.3
+VAR Nota_Financeiro = [Score Pagamentos] * 0.3
+RETURN
+Nota_Uso + Nota_Suporte + Nota_Financeiro
