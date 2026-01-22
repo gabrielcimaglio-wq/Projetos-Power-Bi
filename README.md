@@ -21,4 +21,4 @@ Bem-vindo ao meu portfólio! Aqui reúno soluções de negócio desenvolvidas co
 
 ## 📬 Contato
 Gostou dos projetos? Vamos conversar!
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-blue?style=for-the-badge&logo=linkedin)](SEU_LINK_DO_LINKEDIN_AQUI)
+[![LinkedIn]https://www.linkedin.com/in/gabriel-travassos-739306268/
