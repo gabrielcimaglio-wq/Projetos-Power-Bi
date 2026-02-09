@@ -1,0 +1,28 @@
+# 🛡️ TITANIUM - Insurance Analytics Dashboard
+
+
+## 💼 Business Problem (O Problema de Negócio)
+A Seguradora Titanium precisava de visibilidade sobre sua operação para reduzir o Loss Ratio (Sinistralidade) e identificar padrões de fraude em sua carteira de veículos de luxo. O objetivo era sair de análises manuais para um BI Executivo.
+
+## 🔨 Solution Strategy (Estratégia da Solução)
+O projeto foi desenvolvido simulando um ambiente real de Engenharia de Dados e BI:
+1.  **SQL Server:** Criação de Data Warehouse (Star Schema) e geração de massa de dados sintética com lógica de negócios (fraude injetada em 3.5%).
+2.  **Power BI:** ETL, Modelagem (Fact-Constellation) e DAX Avançado para KPIs de tempo (YoY).
+3.  **UX/UI:** Design System "Dark Neon" focado em usabilidade executiva.
+
+## 📊 Key Indicators (Indicadores Chave)
+- **Loss Ratio (Sinistralidade):** Monitoramento da meta de 65%.
+- **Fraude:** Detecção de anomalias em categorias de veículos (foco em Luxo).
+- **Eficiência:** Ranking de Corretores e Oficinas.
+
+## 🛠️ Tech Stack (Tecnologias)
+- **Database:** SQL Server (T-SQL)
+- **Viz:** Power BI (DAX, Power Query)
+- **Design:** Figma (para ícones) & Power BI Nativo
+
+## 📷 Screenshots
+
+### Visão de Risco & Fraude
+![Risco](assets/04-risco.png)
+
+---
